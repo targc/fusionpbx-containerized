@@ -1,0 +1,53 @@
+FROM debian:11
+
+WORKDIR /usr/src
+
+RUN apt-get update && apt-get install -y gnupg2 wget lsb-release
+
+# RUN apt-get install systemd -y
+
+#### PRE-INSTALL
+RUN apt-get update && apt-get upgrade -y
+
+RUN wget https://packages.sury.org/php/apt.gpg && apt-key add apt.gpg
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
+
+RUN apt-get update && apt-get upgrade -y
+
+# RUN apt-get install -y git lsb-release
+# RUN apt-get install -y sudo
+RUN apt-get install -y postgresql-client
+
+# RUN wget -O - https://raw.githubusercontent.com/fusionpbx/fusionpbx-install.sh/master/debian/pre-install.sh | sh;
+
+COPY ./fusionpbx-install.sh ./fusionpbx-install.sh
+
+WORKDIR /usr/src/fusionpbx-install.sh/debian
+
+RUN ./install.sh
+
+# RUN apt-get update && apt-get upgrade -y
+# RUN apt-get install -y git lsb-release
+
+# RUN cd /usr/src && git clone https://github.com/fusionpbx/fusionpbx-install.sh.git
+#
+# WORKDIR /usr/src/fusionpbx-install.sh/debian
+
+# RUN wget -O - https://raw.githubusercontent.com/fusionpbx/fusionpbx-install.sh/master/debian/pre-install.sh | sh
+
+
+# RUN apt install neovim -y
+# RUN apt install telnet -y
+# RUN apt-get update && apt-get install procps -y
+# RUN apt install net-tools -y
+
+#COPY ./entrypoint.sh /usr/src/fusionpbx-install.sh/debian/entrypoint.sh
+#RUN chmod 777 /usr/src/fusionpbx-install.sh/debian/entrypoint.sh
+
+RUN rm -f /lib/systemd/system/fail2ban.service
+RUN rm -f /etc/init.d/fail2ban
+
+CMD ["/lib/systemd/systemd"]
+# CMD ["tail", "-f", "/dev/null"]
+#CMD ["/usr/src/fusionpbx-install.sh/debian/entrypoint.sh"]
+

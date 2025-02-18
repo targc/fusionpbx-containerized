@@ -1,0 +1,37 @@
+services:
+  postgresql:
+      image: postgres:16
+      environment:
+        POSTGRES_USER: fusionpbx
+        POSTGRES_PASSWORD: mysupersecret
+        POSTGRES_DB: fusionpbx 
+      restart: unless-stopped 
+      ports:
+        - "5432:5432"
+      volumes:
+        - ./volumes/postgresql/data:/var/lib/postgresql/data
+        - ./volumes/postgresql/db-init/:/docker-entrypoint-initdb.d/
+
+  fusion:
+    build:
+      context: .
+      dockerfile: Dockerfile.v2
+    depends_on:
+      - postgresql
+    network_mode: "host" 
+    # volumes:
+    #   - "./volumes/fusion/switch.conf:/etc/freeswitch"
+    #   - "./volumes/fusion/switch.sounds:/usr/share/freeswitch/sounds"
+    #   - "./volumes/fusion/switch.database:/var/lib/freeswitch/db"
+    #   - "./volumes/fusion/switch.recordings:/var/lib/freeswitch/recordings"
+    #   - "./volumes/fusion/switch.storage:/var/lib/freeswitch/storage"
+    #   - "./volumes/fusion/switch.voicemail:/var/lib/freeswitch/storage/voicemail"
+    #   - "./volumes/fusion/switch.scripts:/usr/share/freeswitch/scripts"
+    environment:
+      XPGHOST: localhost
+      XPGPORT: 5432
+      XPGPASSWORD: mysupersecret
+    restart: unless-stopped
+    privileged: true
+    tty: true
+
