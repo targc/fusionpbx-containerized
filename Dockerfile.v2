@@ -26,6 +26,9 @@ WORKDIR /usr/src/fusionpbx-install.sh/debian
 
 RUN ./install.sh
 
+COPY ./scripts/init.sh ./resources/init.sh
+COPY ./scripts/init-db.sh ./resources/init-db.sh
+
 # RUN apt-get update && apt-get upgrade -y
 # RUN apt-get install -y git lsb-release
 
@@ -43,9 +46,6 @@ RUN ./install.sh
 
 #COPY ./entrypoint.sh /usr/src/fusionpbx-install.sh/debian/entrypoint.sh
 #RUN chmod 777 /usr/src/fusionpbx-install.sh/debian/entrypoint.sh
-
-RUN rm -f /lib/systemd/system/fail2ban.service
-RUN rm -f /etc/init.d/fail2ban
 
 CMD ["/lib/systemd/systemd"]
 # CMD ["tail", "-f", "/dev/null"]

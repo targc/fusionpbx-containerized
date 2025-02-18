@@ -13,11 +13,11 @@ services:
         - ./volumes/postgresql/db-init/:/docker-entrypoint-initdb.d/
 
   fusion:
+    depends_on:
+      - postgresql
     build:
       context: .
       dockerfile: Dockerfile.v2
-    depends_on:
-      - postgresql
     network_mode: "host" 
     # volumes:
     #   - "./volumes/fusion/switch.conf:/etc/freeswitch"
@@ -28,9 +28,10 @@ services:
     #   - "./volumes/fusion/switch.voicemail:/var/lib/freeswitch/storage/voicemail"
     #   - "./volumes/fusion/switch.scripts:/usr/share/freeswitch/scripts"
     environment:
-      XPGHOST: localhost
-      XPGPORT: 5432
-      XPGPASSWORD: mysupersecret
+      X_PG_USER: fusionpbx
+      X_PG_HOST: localhost
+      X_PG_PORT: 5432
+      X_PG_PASSWORD: mysupersecret
     restart: unless-stopped
     privileged: true
     tty: true
