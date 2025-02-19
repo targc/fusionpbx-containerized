@@ -1,3 +1,9 @@
+fs-pg-environment: &fs-pg-environment
+  X_PG_USER: fusionpbx
+  X_PG_HOST: localhost
+  X_PG_PORT: 5432
+  X_PG_PASSWORD: mysupersecret
+
 services:
   postgresql:
       image: postgres:16
@@ -19,6 +25,7 @@ services:
       context: .
       dockerfile: Dockerfile
     network_mode: "host" 
+    entrypoint: ./entrypoint.dev.sh
     # volumes:
     #   - "./volumes/fusion/switch.conf:/etc/freeswitch"
     #   - "./volumes/fusion/switch.sounds:/usr/share/freeswitch/sounds"
@@ -28,11 +35,7 @@ services:
     #   - "./volumes/fusion/switch.voicemail:/var/lib/freeswitch/storage/voicemail"
     #   - "./volumes/fusion/switch.scripts:/usr/share/freeswitch/scripts"
     environment:
-      X_PG_USER: fusionpbx
-      X_PG_HOST: localhost
-      X_PG_PORT: 5432
-      X_PG_PASSWORD: mysupersecret
+      <<: *fs_pg_environment
     restart: unless-stopped
     privileged: true
     tty: true
-

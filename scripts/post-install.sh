@@ -4,7 +4,6 @@ lock_file=/etc/fusionpbx/post-install.lock
 test -f $lock_file || exit 0
 touch $lock_file
 
-
 #move to script directory so all relative paths work
 cd "$(dirname "$0")"
 
@@ -50,19 +49,19 @@ systemctl enable email_queue
 systemctl start email_queue
 systemctl daemon-reload
 
-systemctl disable fail2ban.service
-systemctl stop fail2ban.service
-rm -f /lib/systemd/system/fail2ban.service
-rm -f /etc/init.d/fail2ban
-/bin/systemctl daemon-reload
-
-#install the event_guard service
-# cp /var/www/fusionpbx/app/event_guard/resources/service/debian.service /etc/systemd/system/event_guard.service
-# /bin/systemctl disable event_guard
-# /bin/systemctl stop event_guard
-rm -f /var/www/fusionpbx/app/event_guard/resources/service/debian.service
-rm -f /etc/systemd/system/event_guard.service
-/bin/systemctl daemon-reload
+# systemctl disable fail2ban.service
+# systemctl stop fail2ban.service
+# rm -f /lib/systemd/system/fail2ban.service
+# rm -f /etc/init.d/fail2ban
+# /bin/systemctl daemon-reload
+#
+# #install the event_guard service
+# # cp /var/www/fusionpbx/app/event_guard/resources/service/debian.service /etc/systemd/system/event_guard.service
+# # /bin/systemctl disable event_guard
+# # /bin/systemctl stop event_guard
+# rm -f /var/www/fusionpbx/app/event_guard/resources/service/debian.service
+# rm -f /etc/systemd/system/event_guard.service
+# /bin/systemctl daemon-reload
 
 #add xml cdr import to crontab
 apt install cron
