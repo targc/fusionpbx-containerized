@@ -19,8 +19,9 @@ services:
       context: .
       dockerfile: Dockerfile
     network_mode: "host" 
-    entrypoint: ./entrypoint.dev.sh
-    # volumes:
+    entrypoint: /usr/src/fusionpbx-install.sh/entrypoint.sh
+    volumes:
+      - ./entrypoint.example.sh:/usr/src/fusionpbx-install.sh/entrypoint.sh
     #   - "./volumes/fusion/switch.conf:/etc/freeswitch"
     #   - "./volumes/fusion/switch.sounds:/usr/share/freeswitch/sounds"
     #   - "./volumes/fusion/switch.database:/var/lib/freeswitch/db"
