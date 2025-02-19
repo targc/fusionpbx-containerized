@@ -7,8 +7,8 @@ docker exec -it fusionpbx sh
 
 Then
 ```sh
-/usr/src/fusionpbx-install.sh/debian/post-install.sh ;
-/usr/src/fusionpbx-install.sh/debian/initialize-db.sh ;
+/usr/src/fusionpbx-install.sh/debian/resources/post-install.sh
+/usr/src/fusionpbx-install.sh/debian/resources/initialize-db.sh
 
 # disable fail2ban
 systemctl disable fail2ban.service
