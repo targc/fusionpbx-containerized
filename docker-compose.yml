@@ -17,7 +17,7 @@ services:
       - postgresql
     build:
       context: .
-      dockerfile: Dockerfile.v2
+      dockerfile: Dockerfile
     network_mode: "host" 
     # volumes:
     #   - "./volumes/fusion/switch.conf:/etc/freeswitch"
