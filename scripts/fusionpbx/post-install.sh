@@ -1,6 +1,8 @@
 #!/bin/sh
 
-lock_file=/etc/fusionpbx/post-install.lock
+fusionpbx_dir=/etc/fusionpbx
+mkdir -p $fusionpbx_dir
+lock_file=$fusionpbx_dir/post-install.lock
 test -f $lock_file || exit 0
 touch $lock_file
 
