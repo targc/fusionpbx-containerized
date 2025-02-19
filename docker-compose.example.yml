@@ -1,9 +1,3 @@
-fs-pg-environment: &fs-pg-environment
-  X_PG_USER: fusionpbx
-  X_PG_HOST: localhost
-  X_PG_PORT: 5432
-  X_PG_PASSWORD: mysupersecret
-
 services:
   postgresql:
       image: postgres:16
@@ -35,7 +29,10 @@ services:
     #   - "./volumes/fusion/switch.voicemail:/var/lib/freeswitch/storage/voicemail"
     #   - "./volumes/fusion/switch.scripts:/usr/share/freeswitch/scripts"
     environment:
-      <<: *fs-pg-environment
+      X_PG_USER: fusionpbx
+      X_PG_HOST: localhost
+      X_PG_PORT: 5432
+      X_PG_PASSWORD: mysupersecret
     restart: unless-stopped
     privileged: true
     tty: true
