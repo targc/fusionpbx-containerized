@@ -1,16 +1,14 @@
-#!/bin/bash
 
-docker compose -f docker-compose.example.yml down -v
-rm -rf ./volumes
-docker compose -f docker-compose.example.yml up -d --build --wait
+## Example patch
+Exec to container
+```sh
+docker exec -it fusionpbx sh
+```
 
-sleep 10
-
-cat <<EOF | docker exec -i fusionpbx sh
-/usr/src/fusionpbx-install.sh/debian/resources/post-install.sh
-wait
-/usr/src/fusionpbx-install.sh/debian/resources/initialize-db.sh
-wait
+Then
+```sh
+/usr/src/fusionpbx-install.sh/debian/post-install.sh ;
+/usr/src/fusionpbx-install.sh/debian/initialize-db.sh ;
 
 # disable fail2ban
 systemctl disable fail2ban.service
@@ -23,5 +21,4 @@ rm -f /etc/init.d/fail2ban
 rm -f /var/www/fusionpbx/app/event_guard/resources/service/debian.service
 rm -f /etc/systemd/system/event_guard.service
 /bin/systemctl daemon-reload
-EOF
-
+```

@@ -18,7 +18,7 @@ WORKDIR /usr/src/fusionpbx-install.sh/debian
 RUN ./install.sh
 
 #### PREPARE FOR POST-INSTALL
-COPY ./scripts/fusionpbx/post-install.sh ./resources/post-install.sh
-COPY ./scripts/fusionpbx/initialize-db.sh ./resources/initialize-db.sh
+COPY ./scripts/fusionpbx/post-install.sh ./post-install.sh
+COPY ./scripts/fusionpbx/initialize-db.sh ./initialize-db.sh
 
 CMD ["/lib/systemd/systemd"]
