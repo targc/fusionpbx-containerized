@@ -4,7 +4,7 @@
 
 sleep 10
 
-/usr/src/fusionpbx-install.sh/debian/post-install.sh
+/usr/src/fusionpbx-install.sh/debian/resources/post-install.sh
 
 # disable fail2ban
 systemctl disable fail2ban.service
