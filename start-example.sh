@@ -8,7 +8,9 @@ sleep 10
 
 cat <<EOF | docker exec -i fusionpbx sh
 /usr/src/fusionpbx-install.sh/debian/resources/post-install.sh
+wait
 /usr/src/fusionpbx-install.sh/debian/resources/initialize-db.sh
+wait
 
 # disable fail2ban
 systemctl disable fail2ban.service
