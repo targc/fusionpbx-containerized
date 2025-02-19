@@ -6,7 +6,7 @@ docker compose -f docker-compose.example.yml up -d --build --wait
 
 sleep 10
 
-cat <<EOF | docker exec -i fusionpbx sh
+cat <<EOF | docker exec -i fusionpbx bash
 /usr/src/fusionpbx-install.sh/debian/resources/post-install.sh
 wait
 /usr/src/fusionpbx-install.sh/debian/resources/initialize-db.sh
