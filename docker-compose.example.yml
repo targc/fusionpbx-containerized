@@ -35,7 +35,7 @@ services:
     #   - "./volumes/fusion/switch.voicemail:/var/lib/freeswitch/storage/voicemail"
     #   - "./volumes/fusion/switch.scripts:/usr/share/freeswitch/scripts"
     environment:
-      <<: *fs_pg_environment
+      <<: *fs-pg-environment
     restart: unless-stopped
     privileged: true
     tty: true
