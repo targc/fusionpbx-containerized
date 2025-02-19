@@ -2,7 +2,9 @@
 
 docker compose -f docker-compose.example.yml down -v
 rm -rf ./volumes
-docker compose -f docker-compose.example.yml up -d --build
+docker compose -f docker-compose.example.yml up -d --build --wait
+
+sleep 10
 
 cat <<EOF | docker exec -i fusionpbx sh
 /usr/src/fusionpbx-install.sh/debian/resources/post-install.sh

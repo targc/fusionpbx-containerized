@@ -7,6 +7,11 @@ services:
         POSTGRES_PASSWORD: mysupersecret
         POSTGRES_DB: fusionpbx 
       restart: unless-stopped 
+      healthcheck:
+        test: ["CMD-SHELL", "sh -c 'pg_isready -U fusionpbx -d fusionpbx'"]
+        interval: 10s
+        timeout: 10s
+        retries: 10
       ports:
         - "5432:5432"
       volumes:
@@ -15,7 +20,8 @@ services:
 
   fusionpbx:
     depends_on:
-      - postgresql
+      - postgresql:
+          condition: service_healthy
     container_name: fusionpbx
     build:
       context: .
