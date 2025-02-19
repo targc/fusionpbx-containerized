@@ -20,3 +20,5 @@ RUN ./install.sh
 #### POST-INSTALL
 COPY ./scripts/post-install.sh ./resources/post-install.sh
 COPY ./scripts/initialize-db.sh ./resources/initialize-db.sh
+
+CMD ["/lib/systemd/systemd"]

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-/lib/systemd/systemd &
-
-sleep 10
-
 /usr/src/fusionpbx-install.sh/debian/resources/post-install.sh
 
 # disable fail2ban
