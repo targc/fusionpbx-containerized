@@ -20,8 +20,8 @@ services:
 
   fusionpbx:
     depends_on:
-      - postgresql:
-          condition: service_healthy
+      postgresql:
+        condition: service_healthy
     container_name: fusionpbx
     build:
       context: .
