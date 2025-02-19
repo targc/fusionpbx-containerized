@@ -3,7 +3,7 @@
 fusionpbx_dir=/etc/fusionpbx
 mkdir -p $fusionpbx_dir
 lock_file=$fusionpbx_dir/post-install.lock
-test -f $lock_file || exit 0
+test -f $lock_file && exit 0
 touch $lock_file
 
 #move to script directory so all relative paths work
