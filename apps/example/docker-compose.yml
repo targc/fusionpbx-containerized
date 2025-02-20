@@ -49,3 +49,17 @@ services:
     post_start:
       - command: /usr/src/fusionpbx-install.sh/debian/resources/post-script.sh
         user: root
+
+  esl-go:
+    depends_on:
+      - fusionpbx
+  container_name: esl-go
+  build:
+    context: ./esl-go
+    dockerfile: Dockerfile
+    environment:
+      FREESWITCH_HOST: fusionpbx
+      FREESWITCH_PORT: 8021
+      FREESWITCH_PASSWORD: ClueCon_updated
+      IGNORED_EVENT_NAMES:
+    restart: unless-stopped
