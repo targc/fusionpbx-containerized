@@ -27,7 +27,7 @@ services:
     container_name: fusionpbx
     build:
       context: .
-      dockerfile: Dockerfile.example
+      dockerfile: Dockerfile
     network_mode: "host" 
     volumes:
     #   - "./volumes/fusion/switch.conf:/etc/freeswitch"

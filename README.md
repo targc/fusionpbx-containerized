@@ -1,5 +1,5 @@
 
 ## Example patch
 ```sh
-./start-example.sh
+../apps/example/start.sh
 ```

@@ -1,3 +1,0 @@
-FROM local/fusionpbx:0.1.0
-
-COPY ./scripts/example/post-script.sh ./resources/post-script.sh
