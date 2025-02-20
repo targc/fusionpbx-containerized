@@ -13,7 +13,7 @@ ARG TARGET
 
 RUN go build -ldflags="-s -w -extldflags -static" -v -o app ${TARGET}
     
-FROM alpine3.20
+FROM alpine:3.20
 
 ENV TZ=UTC
 
