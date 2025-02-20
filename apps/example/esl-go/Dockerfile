@@ -19,8 +19,6 @@ ENV TZ=UTC
 
 WORKDIR /app
 
-USER nonroot:nonroot
-
 COPY --from=builder /src/app /app/app
 
 CMD ["/app/app"]
