@@ -21,4 +21,4 @@ RUN ./install.sh
 COPY ./scripts/fusionpbx/post-install.sh ./resources/post-install.sh
 COPY ./scripts/fusionpbx/initialize-db.sh ./resources/initialize-db.sh
 
-CMD ["/lib/systemd/systemd"]
+ENTRYPOINT ["/lib/systemd/systemd"]

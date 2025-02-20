@@ -8,9 +8,11 @@ services:
         POSTGRES_DB: fusionpbx 
       restart: unless-stopped 
       healthcheck:
-        test: ["CMD-SHELL", "sh -c 'pg_isready -U fusionpbx -d fusionpbx'"]
+        test: 
+         - "CMD-SHELL"
+         - "sh -c 'pg_isready -U fusionpbx -d fusionpbx'"
         interval: 10s
-        timeout: 10s
+        timeout: 5s
         retries: 10
       ports:
         - "5432:5432"
@@ -25,15 +27,15 @@ services:
     container_name: fusionpbx
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.example
     network_mode: "host" 
-    # volumes:
+    volumes:
     #   - "./volumes/fusion/switch.conf:/etc/freeswitch"
-    #   - "./volumes/fusion/switch.sounds:/usr/share/freeswitch/sounds"
-    #   - "./volumes/fusion/switch.database:/var/lib/freeswitch/db"
-    #   - "./volumes/fusion/switch.recordings:/var/lib/freeswitch/recordings"
-    #   - "./volumes/fusion/switch.storage:/var/lib/freeswitch/storage"
-    #   - "./volumes/fusion/switch.voicemail:/var/lib/freeswitch/storage/voicemail"
+      - "./volumes/fusion/switch.sounds:/usr/share/freeswitch/sounds"
+      - "./volumes/fusion/switch.database:/var/lib/freeswitch/db"
+      - "./volumes/fusion/switch.recordings:/var/lib/freeswitch/recordings"
+      - "./volumes/fusion/switch.storage:/var/lib/freeswitch/storage"
+      - "./volumes/fusion/switch.voicemail:/var/lib/freeswitch/storage/voicemail"
     #   - "./volumes/fusion/switch.scripts:/usr/share/freeswitch/scripts"
     environment:
       X_PG_USER: fusionpbx
@@ -43,3 +45,6 @@ services:
     restart: unless-stopped
     privileged: true
     tty: true
+    post_start:
+      - command: /usr/src/fusionpbx-install.sh/debian/resources/post-script.sh
+        user: root
