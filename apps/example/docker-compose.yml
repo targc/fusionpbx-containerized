@@ -42,6 +42,7 @@ services:
       X_PG_HOST: localhost
       X_PG_PORT: 5432
       X_PG_PASSWORD: mysupersecret
+      X_FREESWITCH_ESL_PASSWORD: ClueCon_updated
     restart: unless-stopped
     privileged: true
     tty: true
