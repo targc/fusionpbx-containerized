@@ -1,24 +1,24 @@
 services:
   postgresql:
-      container_name: postgresql
-      image: postgres:16
-      environment:
-        POSTGRES_USER: fusionpbx
-        POSTGRES_PASSWORD: mysupersecret
-        POSTGRES_DB: fusionpbx 
-      restart: unless-stopped 
-      healthcheck:
-        test: 
-         - "CMD-SHELL"
-         - "sh -c 'pg_isready -U fusionpbx -d fusionpbx'"
-        interval: 10s
-        timeout: 5s
-        retries: 10
-      ports:
-        - "5432:5432"
-      volumes:
-        - ./volumes/postgresql/data:/var/lib/postgresql/data
-        - ./volumes/postgresql/db-init/:/docker-entrypoint-initdb.d/
+    container_name: postgresql
+    image: postgres:16
+    environment:
+      POSTGRES_USER: fusionpbx
+      POSTGRES_PASSWORD: mysupersecret
+      POSTGRES_DB: fusionpbx 
+    restart: unless-stopped 
+    healthcheck:
+      test: 
+       - "CMD-SHELL"
+       - "sh -c 'pg_isready -U fusionpbx -d fusionpbx'"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./volumes/postgresql/data:/var/lib/postgresql/data
+      - ./volumes/postgresql/db-init/:/docker-entrypoint-initdb.d/
 
   fusionpbx:
     depends_on:
@@ -57,8 +57,9 @@ services:
     build:
       context: ./esl-go
       dockerfile: Dockerfile
+    network_mode: "host" 
     environment:
-      FREESWITCH_HOST: fusionpbx
+      FREESWITCH_HOST: localhost
       FREESWITCH_PORT: 8021
       FREESWITCH_PASSWORD: ClueCon_updated
       IGNORED_EVENT_NAMES:
